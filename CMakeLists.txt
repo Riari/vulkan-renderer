@@ -34,6 +34,8 @@ add_executable(
     ${SOURCES}
 )
 
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+
 target_include_directories(
     ${PROJECT_NAME}
     PUBLIC ${Vulkan_INCLUDE_DIRS}
