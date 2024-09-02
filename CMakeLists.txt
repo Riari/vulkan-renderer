@@ -9,6 +9,7 @@ project(
 find_package(Vulkan REQUIRED)
 
 include(FetchContent)
+include(cmake/glslc.cmake)
 
 FetchContent_Declare(
     glfw
@@ -26,7 +27,14 @@ FetchContent_MakeAvailable(glfw glm)
 
 set(
     SOURCES
-    src/main.cpp
+    "src/main.cpp"
+)
+
+set(GLSL_SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/shaders")
+set(
+    GLSL_SOURCES
+    "${GLSL_SOURCE_DIR}/triangle.frag.glsl"
+    "${GLSL_SOURCE_DIR}/triangle.vert.glsl"
 )
 
 add_executable(
@@ -35,6 +43,8 @@ add_executable(
 )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+
+target_add_shaders(${PROJECT_NAME} "${GLSL_SOURCES}")
 
 target_include_directories(
     ${PROJECT_NAME}
